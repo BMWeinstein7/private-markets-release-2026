@@ -13,7 +13,15 @@ import type {
   UseQueryResult,
 } from "@tanstack/react-query";
 
-import type { HealthStatus } from "./api.schemas";
+import type {
+  BifurcationPoint,
+  CompanyValuation,
+  HealthStatus,
+  IpoPipeline,
+  MarketOverview,
+  SecondaryVolumePoint,
+  SpvBreakdownPoint,
+} from "./api.schemas";
 
 import { customFetch } from "../custom-fetch";
 import type { ErrorType } from "../custom-fetch";
@@ -92,6 +100,462 @@ export function useHealthCheck<
   request?: SecondParameter<typeof customFetch>;
 }): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
   const queryOptions = getHealthCheckQueryOptions(options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+/**
+ * Returns high-level KPIs for the private markets Q1 2026 report
+ * @summary Get market overview KPIs
+ */
+export const getGetMarketOverviewUrl = () => {
+  return `/api/market/overview`;
+};
+
+export const getMarketOverview = async (
+  options?: RequestInit,
+): Promise<MarketOverview> => {
+  return customFetch<MarketOverview>(getGetMarketOverviewUrl(), {
+    ...options,
+    method: "GET",
+  });
+};
+
+export const getGetMarketOverviewQueryKey = () => {
+  return [`/api/market/overview`] as const;
+};
+
+export const getGetMarketOverviewQueryOptions = <
+  TData = Awaited<ReturnType<typeof getMarketOverview>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getMarketOverview>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetMarketOverviewQueryKey();
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getMarketOverview>>
+  > = ({ signal }) => getMarketOverview({ signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getMarketOverview>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type GetMarketOverviewQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getMarketOverview>>
+>;
+export type GetMarketOverviewQueryError = ErrorType<unknown>;
+
+/**
+ * @summary Get market overview KPIs
+ */
+
+export function useGetMarketOverview<
+  TData = Awaited<ReturnType<typeof getMarketOverview>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getMarketOverview>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetMarketOverviewQueryOptions(options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+/**
+ * Returns historical secondary transaction volume data
+ * @summary Get secondary market volume data
+ */
+export const getGetSecondaryVolumeUrl = () => {
+  return `/api/market/secondary-volume`;
+};
+
+export const getSecondaryVolume = async (
+  options?: RequestInit,
+): Promise<SecondaryVolumePoint[]> => {
+  return customFetch<SecondaryVolumePoint[]>(getGetSecondaryVolumeUrl(), {
+    ...options,
+    method: "GET",
+  });
+};
+
+export const getGetSecondaryVolumeQueryKey = () => {
+  return [`/api/market/secondary-volume`] as const;
+};
+
+export const getGetSecondaryVolumeQueryOptions = <
+  TData = Awaited<ReturnType<typeof getSecondaryVolume>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getSecondaryVolume>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetSecondaryVolumeQueryKey();
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getSecondaryVolume>>
+  > = ({ signal }) => getSecondaryVolume({ signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getSecondaryVolume>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type GetSecondaryVolumeQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getSecondaryVolume>>
+>;
+export type GetSecondaryVolumeQueryError = ErrorType<unknown>;
+
+/**
+ * @summary Get secondary market volume data
+ */
+
+export function useGetSecondaryVolume<
+  TData = Awaited<ReturnType<typeof getSecondaryVolume>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getSecondaryVolume>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetSecondaryVolumeQueryOptions(options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+/**
+ * Returns sector performance showing AI premium vs SaaS discount
+ * @summary Get market bifurcation data
+ */
+export const getGetMarketBifurcationUrl = () => {
+  return `/api/market/bifurcation`;
+};
+
+export const getMarketBifurcation = async (
+  options?: RequestInit,
+): Promise<BifurcationPoint[]> => {
+  return customFetch<BifurcationPoint[]>(getGetMarketBifurcationUrl(), {
+    ...options,
+    method: "GET",
+  });
+};
+
+export const getGetMarketBifurcationQueryKey = () => {
+  return [`/api/market/bifurcation`] as const;
+};
+
+export const getGetMarketBifurcationQueryOptions = <
+  TData = Awaited<ReturnType<typeof getMarketBifurcation>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getMarketBifurcation>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetMarketBifurcationQueryKey();
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getMarketBifurcation>>
+  > = ({ signal }) => getMarketBifurcation({ signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getMarketBifurcation>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type GetMarketBifurcationQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getMarketBifurcation>>
+>;
+export type GetMarketBifurcationQueryError = ErrorType<unknown>;
+
+/**
+ * @summary Get market bifurcation data
+ */
+
+export function useGetMarketBifurcation<
+  TData = Awaited<ReturnType<typeof getMarketBifurcation>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getMarketBifurcation>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetMarketBifurcationQueryOptions(options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+/**
+ * Returns valuation data for the top 7 private companies
+ * @summary Get Private Magnificent 7 data
+ */
+export const getGetMagnificentSevenUrl = () => {
+  return `/api/market/magnificent-seven`;
+};
+
+export const getMagnificentSeven = async (
+  options?: RequestInit,
+): Promise<CompanyValuation[]> => {
+  return customFetch<CompanyValuation[]>(getGetMagnificentSevenUrl(), {
+    ...options,
+    method: "GET",
+  });
+};
+
+export const getGetMagnificentSevenQueryKey = () => {
+  return [`/api/market/magnificent-seven`] as const;
+};
+
+export const getGetMagnificentSevenQueryOptions = <
+  TData = Awaited<ReturnType<typeof getMagnificentSeven>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getMagnificentSeven>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetMagnificentSevenQueryKey();
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getMagnificentSeven>>
+  > = ({ signal }) => getMagnificentSeven({ signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getMagnificentSeven>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type GetMagnificentSevenQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getMagnificentSeven>>
+>;
+export type GetMagnificentSevenQueryError = ErrorType<unknown>;
+
+/**
+ * @summary Get Private Magnificent 7 data
+ */
+
+export function useGetMagnificentSeven<
+  TData = Awaited<ReturnType<typeof getMagnificentSeven>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getMagnificentSeven>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetMagnificentSevenQueryOptions(options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+/**
+ * Returns data about the $3T IPO pipeline stress test
+ * @summary Get IPO pipeline stress test data
+ */
+export const getGetIpoPipelineUrl = () => {
+  return `/api/market/ipo-pipeline`;
+};
+
+export const getIpoPipeline = async (
+  options?: RequestInit,
+): Promise<IpoPipeline> => {
+  return customFetch<IpoPipeline>(getGetIpoPipelineUrl(), {
+    ...options,
+    method: "GET",
+  });
+};
+
+export const getGetIpoPipelineQueryKey = () => {
+  return [`/api/market/ipo-pipeline`] as const;
+};
+
+export const getGetIpoPipelineQueryOptions = <
+  TData = Awaited<ReturnType<typeof getIpoPipeline>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getIpoPipeline>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetIpoPipelineQueryKey();
+
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof getIpoPipeline>>> = ({
+    signal,
+  }) => getIpoPipeline({ signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getIpoPipeline>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type GetIpoPipelineQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getIpoPipeline>>
+>;
+export type GetIpoPipelineQueryError = ErrorType<unknown>;
+
+/**
+ * @summary Get IPO pipeline stress test data
+ */
+
+export function useGetIpoPipeline<
+  TData = Awaited<ReturnType<typeof getIpoPipeline>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getIpoPipeline>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetIpoPipelineQueryOptions(options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+/**
+ * Returns SPV vs traditional secondary deal volume breakdown
+ * @summary Get SPV market share breakdown
+ */
+export const getGetSpvBreakdownUrl = () => {
+  return `/api/market/spv-breakdown`;
+};
+
+export const getSpvBreakdown = async (
+  options?: RequestInit,
+): Promise<SpvBreakdownPoint[]> => {
+  return customFetch<SpvBreakdownPoint[]>(getGetSpvBreakdownUrl(), {
+    ...options,
+    method: "GET",
+  });
+};
+
+export const getGetSpvBreakdownQueryKey = () => {
+  return [`/api/market/spv-breakdown`] as const;
+};
+
+export const getGetSpvBreakdownQueryOptions = <
+  TData = Awaited<ReturnType<typeof getSpvBreakdown>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getSpvBreakdown>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetSpvBreakdownQueryKey();
+
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof getSpvBreakdown>>> = ({
+    signal,
+  }) => getSpvBreakdown({ signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getSpvBreakdown>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type GetSpvBreakdownQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getSpvBreakdown>>
+>;
+export type GetSpvBreakdownQueryError = ErrorType<unknown>;
+
+/**
+ * @summary Get SPV market share breakdown
+ */
+
+export function useGetSpvBreakdown<
+  TData = Awaited<ReturnType<typeof getSpvBreakdown>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getSpvBreakdown>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetSpvBreakdownQueryOptions(options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
     queryKey: QueryKey;

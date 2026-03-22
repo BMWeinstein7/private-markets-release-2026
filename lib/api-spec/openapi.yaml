@@ -1,6 +1,5 @@
-openapi: 3.1.0
+openapi: 3.0.0
 info:
-  # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
   description: API specification
@@ -10,6 +9,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: market
+    description: Private markets data
 paths:
   /healthz:
     get:
@@ -24,6 +25,92 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /market/overview:
+    get:
+      operationId: getMarketOverview
+      tags: [market]
+      summary: Get market overview KPIs
+      description: Returns high-level KPIs for the private markets Q1 2026 report
+      responses:
+        "200":
+          description: Market overview data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MarketOverview"
+  /market/secondary-volume:
+    get:
+      operationId: getSecondaryVolume
+      tags: [market]
+      summary: Get secondary market volume data
+      description: Returns historical secondary transaction volume data
+      responses:
+        "200":
+          description: Secondary volume time series
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SecondaryVolumePoint"
+  /market/bifurcation:
+    get:
+      operationId: getMarketBifurcation
+      tags: [market]
+      summary: Get market bifurcation data
+      description: Returns sector performance showing AI premium vs SaaS discount
+      responses:
+        "200":
+          description: Bifurcation data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/BifurcationPoint"
+  /market/magnificent-seven:
+    get:
+      operationId: getMagnificentSeven
+      tags: [market]
+      summary: Get Private Magnificent 7 data
+      description: Returns valuation data for the top 7 private companies
+      responses:
+        "200":
+          description: Magnificent 7 company data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CompanyValuation"
+  /market/ipo-pipeline:
+    get:
+      operationId: getIpoPipeline
+      tags: [market]
+      summary: Get IPO pipeline stress test data
+      description: Returns data about the $3T IPO pipeline stress test
+      responses:
+        "200":
+          description: IPO pipeline data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IpoPipeline"
+  /market/spv-breakdown:
+    get:
+      operationId: getSpvBreakdown
+      tags: [market]
+      summary: Get SPV market share breakdown
+      description: Returns SPV vs traditional secondary deal volume breakdown
+      responses:
+        "200":
+          description: SPV breakdown data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SpvBreakdownPoint"
 components:
   schemas:
     HealthStatus:
@@ -33,4 +120,130 @@ components:
           type: string
       required:
         - status
-
+    MarketOverview:
+      type: object
+      properties:
+        secondaryVolumeB:
+          type: number
+          description: Secondary transaction volume in billions USD in 2025
+        aiDealSharePct:
+          type: number
+          description: AI-related investments as % of 2025 deal value
+        spvSharePct:
+          type: number
+          description: SPV share of secondary volume in late 2025
+        megaCapValuationT:
+          type: number
+          description: Combined market cap of SpaceX+OpenAI+Anthropic in trillions
+        saasDiscountPctMin:
+          type: number
+          description: Minimum discount for SaaS companies in secondary (%)
+        saasDiscountPctMax:
+          type: number
+          description: Maximum discount for SaaS companies in secondary (%)
+        valuationGrowthSince2023x:
+          type: number
+          description: Value growth of Private Magnificent 7 since 2023 (multiple)
+      required:
+        - secondaryVolumeB
+        - aiDealSharePct
+        - spvSharePct
+        - megaCapValuationT
+        - saasDiscountPctMin
+        - saasDiscountPctMax
+        - valuationGrowthSince2023x
+    SecondaryVolumePoint:
+      type: object
+      properties:
+        year:
+          type: string
+        volumeB:
+          type: number
+          description: Volume in billions USD
+        label:
+          type: string
+          nullable: true
+      required:
+        - year
+        - volumeB
+    BifurcationPoint:
+      type: object
+      properties:
+        sector:
+          type: string
+        premiumDiscountPct:
+          type: number
+          description: Premium (positive) or discount (negative) vs last primary round in %
+        category:
+          type: string
+          description: premium or discount
+      required:
+        - sector
+        - premiumDiscountPct
+        - category
+    CompanyValuation:
+      type: object
+      properties:
+        company:
+          type: string
+        valuationB:
+          type: number
+          description: Current estimated valuation in billions USD
+        sector:
+          type: string
+        valuationGrowthSince2023Pct:
+          type: number
+          description: Approximate valuation growth since 2023 in %
+      required:
+        - company
+        - valuationB
+        - sector
+        - valuationGrowthSince2023Pct
+    IpoPipeline:
+      type: object
+      properties:
+        companies:
+          type: array
+          items:
+            $ref: "#/components/schemas/IpoCompany"
+        totalCapNeededAt15FloatB:
+          type: number
+          description: Capital needed from public markets at 15% float in billions
+        projectedFloatPctMin:
+          type: number
+          description: Projected actual float min %
+        projectedFloatPctMax:
+          type: number
+          description: Projected actual float max %
+        historicalUsipoTotalB:
+          type: number
+          description: Total US IPO capital raised 2016-2025 in billions (for comparison)
+      required:
+        - companies
+        - totalCapNeededAt15FloatB
+        - projectedFloatPctMin
+        - projectedFloatPctMax
+        - historicalUsipoTotalB
+    IpoCompany:
+      type: object
+      properties:
+        name:
+          type: string
+        valuationB:
+          type: number
+      required:
+        - name
+        - valuationB
+    SpvBreakdownPoint:
+      type: object
+      properties:
+        year:
+          type: string
+        spvSharePct:
+          type: number
+        traditionalSharePct:
+          type: number
+      required:
+        - year
+        - spvSharePct
+        - traditionalSharePct

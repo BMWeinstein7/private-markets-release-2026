@@ -6,4 +6,11 @@
  * OpenAPI spec version: 0.1.0
  */
 
+export * from "./bifurcationPoint";
+export * from "./companyValuation";
 export * from "./healthStatus";
+export * from "./ipoCompany";
+export * from "./ipoPipeline";
+export * from "./marketOverview";
+export * from "./secondaryVolumePoint";
+export * from "./spvBreakdownPoint";

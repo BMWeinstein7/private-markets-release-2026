@@ -14,3 +14,113 @@ import * as zod from "zod";
 export const HealthCheckResponse = zod.object({
   status: zod.string(),
 });
+
+/**
+ * Returns high-level KPIs for the private markets Q1 2026 report
+ * @summary Get market overview KPIs
+ */
+export const GetMarketOverviewResponse = zod.object({
+  secondaryVolumeB: zod
+    .number()
+    .describe("Secondary transaction volume in billions USD in 2025"),
+  aiDealSharePct: zod
+    .number()
+    .describe("AI-related investments as % of 2025 deal value"),
+  spvSharePct: zod
+    .number()
+    .describe("SPV share of secondary volume in late 2025"),
+  megaCapValuationT: zod
+    .number()
+    .describe("Combined market cap of SpaceX+OpenAI+Anthropic in trillions"),
+  saasDiscountPctMin: zod
+    .number()
+    .describe("Minimum discount for SaaS companies in secondary (%)"),
+  saasDiscountPctMax: zod
+    .number()
+    .describe("Maximum discount for SaaS companies in secondary (%)"),
+  valuationGrowthSince2023x: zod
+    .number()
+    .describe("Value growth of Private Magnificent 7 since 2023 (multiple)"),
+});
+
+/**
+ * Returns historical secondary transaction volume data
+ * @summary Get secondary market volume data
+ */
+export const GetSecondaryVolumeResponseItem = zod.object({
+  year: zod.string(),
+  volumeB: zod.number().describe("Volume in billions USD"),
+  label: zod.string().nullish(),
+});
+export const GetSecondaryVolumeResponse = zod.array(
+  GetSecondaryVolumeResponseItem,
+);
+
+/**
+ * Returns sector performance showing AI premium vs SaaS discount
+ * @summary Get market bifurcation data
+ */
+export const GetMarketBifurcationResponseItem = zod.object({
+  sector: zod.string(),
+  premiumDiscountPct: zod
+    .number()
+    .describe(
+      "Premium (positive) or discount (negative) vs last primary round in %",
+    ),
+  category: zod.string().describe("premium or discount"),
+});
+export const GetMarketBifurcationResponse = zod.array(
+  GetMarketBifurcationResponseItem,
+);
+
+/**
+ * Returns valuation data for the top 7 private companies
+ * @summary Get Private Magnificent 7 data
+ */
+export const GetMagnificentSevenResponseItem = zod.object({
+  company: zod.string(),
+  valuationB: zod
+    .number()
+    .describe("Current estimated valuation in billions USD"),
+  sector: zod.string(),
+  valuationGrowthSince2023Pct: zod
+    .number()
+    .describe("Approximate valuation growth since 2023 in %"),
+});
+export const GetMagnificentSevenResponse = zod.array(
+  GetMagnificentSevenResponseItem,
+);
+
+/**
+ * Returns data about the $3T IPO pipeline stress test
+ * @summary Get IPO pipeline stress test data
+ */
+export const GetIpoPipelineResponse = zod.object({
+  companies: zod.array(
+    zod.object({
+      name: zod.string(),
+      valuationB: zod.number(),
+    }),
+  ),
+  totalCapNeededAt15FloatB: zod
+    .number()
+    .describe("Capital needed from public markets at 15% float in billions"),
+  projectedFloatPctMin: zod.number().describe("Projected actual float min %"),
+  projectedFloatPctMax: zod.number().describe("Projected actual float max %"),
+  historicalUsipoTotalB: zod
+    .number()
+    .describe(
+      "Total US IPO capital raised 2016-2025 in billions (for comparison)",
+    ),
+});
+
+/**
+ * Returns SPV vs traditional secondary deal volume breakdown
+ * @summary Get SPV market share breakdown
+ */
+export const GetSpvBreakdownResponseItem = zod.object({
+  year: zod.string(),
+  spvSharePct: zod.number(),
+  traditionalSharePct: zod.number(),
+});
+export const GetSpvBreakdownResponse = zod.array(GetSpvBreakdownResponseItem);

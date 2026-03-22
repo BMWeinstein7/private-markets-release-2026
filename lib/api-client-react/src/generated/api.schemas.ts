@@ -8,3 +8,68 @@
 export interface HealthStatus {
   status: string;
 }
+
+export interface MarketOverview {
+  /** Secondary transaction volume in billions USD in 2025 */
+  secondaryVolumeB: number;
+  /** AI-related investments as % of 2025 deal value */
+  aiDealSharePct: number;
+  /** SPV share of secondary volume in late 2025 */
+  spvSharePct: number;
+  /** Combined market cap of SpaceX+OpenAI+Anthropic in trillions */
+  megaCapValuationT: number;
+  /** Minimum discount for SaaS companies in secondary (%) */
+  saasDiscountPctMin: number;
+  /** Maximum discount for SaaS companies in secondary (%) */
+  saasDiscountPctMax: number;
+  /** Value growth of Private Magnificent 7 since 2023 (multiple) */
+  valuationGrowthSince2023x: number;
+}
+
+export interface SecondaryVolumePoint {
+  year: string;
+  /** Volume in billions USD */
+  volumeB: number;
+  /** @nullable */
+  label?: string | null;
+}
+
+export interface BifurcationPoint {
+  sector: string;
+  /** Premium (positive) or discount (negative) vs last primary round in % */
+  premiumDiscountPct: number;
+  /** premium or discount */
+  category: string;
+}
+
+export interface CompanyValuation {
+  company: string;
+  /** Current estimated valuation in billions USD */
+  valuationB: number;
+  sector: string;
+  /** Approximate valuation growth since 2023 in % */
+  valuationGrowthSince2023Pct: number;
+}
+
+export interface IpoCompany {
+  name: string;
+  valuationB: number;
+}
+
+export interface IpoPipeline {
+  companies: IpoCompany[];
+  /** Capital needed from public markets at 15% float in billions */
+  totalCapNeededAt15FloatB: number;
+  /** Projected actual float min % */
+  projectedFloatPctMin: number;
+  /** Projected actual float max % */
+  projectedFloatPctMax: number;
+  /** Total US IPO capital raised 2016-2025 in billions (for comparison) */
+  historicalUsipoTotalB: number;
+}
+
+export interface SpvBreakdownPoint {
+  year: string;
+  spvSharePct: number;
+  traditionalSharePct: number;
+}
