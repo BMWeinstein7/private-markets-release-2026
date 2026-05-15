@@ -14,11 +14,11 @@ router.get("/market/overview", async (_req, res): Promise<void> => {
   const overview = GetMarketOverviewResponse.parse({
     secondaryVolumeB: 226,
     aiDealSharePct: 55,
-    spvSharePct: 52,
-    megaCapValuationT: 4,
-    saasDiscountPctMin: 20,
-    saasDiscountPctMax: 60,
-    valuationGrowthSince2023x: 8,
+    spvSharePct: 58,
+    megaCapValuationT: 3,
+    saasDiscountPctMin: 22,
+    saasDiscountPctMax: 52,
+    valuationGrowthSince2023x: 18,
   });
   res.json(overview);
 });

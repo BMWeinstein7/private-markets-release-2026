@@ -173,10 +173,10 @@ export default function PrivateMarketsReport() {
   useEffect(() => {
     if (loading) {
       setIsSpinning(true);
-    } else {
-      const t = setTimeout(() => setIsSpinning(false), 600);
-      return () => clearTimeout(t);
+      return;
     }
+    const t = setTimeout(() => setIsSpinning(false), 600);
+    return () => clearTimeout(t);
   }, [loading]);
 
   const handleRefresh = async () => {
