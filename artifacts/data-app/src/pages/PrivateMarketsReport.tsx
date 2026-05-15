@@ -47,7 +47,7 @@ const SECTOR_ICONS: Record<string, any> = {
   "Fintech": DollarSign,
 };
 
-const DATA_SOURCES: string[] = ["Q1 2026 Private Markets Outlook"];
+const DATA_SOURCES: string[] = ["Evercore PCA", "William Blair", "Q1 2026 Private Markets Outlook", "May 2026 update incl. Cerebras IPO"];
 
 function CustomTooltip({ active, payload, label, formatter }: any) {
   if (!active || !payload || payload.length === 0) return null;
@@ -286,37 +286,51 @@ export default function PrivateMarketsReport() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
           <KpiCard
             label="Secondary Volume"
-            value="$200B"
-            subtext="Record high in 2025"
+            value="$226B"
+            subtext="+42% YoY (Evercore)"
             color={CHART_COLORS.blue}
             trend="up"
             loading={loading && !overview}
           />
           <KpiCard
             label="AI Deal Share"
-            value="~40%"
-            subtext="of all 2025 deal value"
+            value="~55%"
+            subtext="of 2025 deal value"
             color={CHART_COLORS.purple}
             trend="up"
             loading={loading && !overview}
           />
           <KpiCard
-            label="Mag 7 Growth"
-            value="4x"
-            subtext="since 2023"
+            label="OpenAI Valuation"
+            value="$852B"
+            subtext="Mar 2026 round"
             color={CHART_COLORS.green}
             trend="up"
             loading={loading && !overview}
           />
           <KpiCard
             label="SPV Market Share"
-            value=">50%"
-            subtext="surpassed traditional"
+            value="58%"
+            subtext="Q1 2026"
             color={CHART_COLORS.amber}
             trend="up"
             loading={loading && !overview}
           />
         </div>
+
+        <Card className="mb-6 border-l-4" style={{ borderLeftColor: CHART_COLORS.green }}>
+          <CardContent className="px-6 py-4 flex items-start gap-3">
+            <span className="inline-flex items-center justify-center w-8 h-8 rounded-full shrink-0 mt-0.5" style={{ backgroundColor: CHART_COLORS.green + "18" }}>
+              <Rocket className="w-4 h-4" style={{ color: CHART_COLORS.green }} />
+            </span>
+            <div className="flex-1">
+              <p className="text-[13px] font-semibold mb-0.5" style={{ color: CHART_COLORS.green }}>BREAKING — May 14, 2026</p>
+              <p className="text-sm text-foreground leading-relaxed">
+                <strong>Cerebras (CBRS)</strong> priced its IPO at <strong>$185/share</strong> ($56.4B fully diluted), opened at <strong>$350</strong> (+89% pop), and closed Day 1 at <strong>$66B valuation</strong>. The largest AI hardware IPO in history validates the AI infrastructure thesis — and signals public market appetite for the SpaceX/OpenAI/Anthropic pipeline ahead.
+              </p>
+            </div>
+          </CardContent>
+        </Card>
 
         <Card className="mb-6">
           <CardHeader className="px-6 pt-6 pb-2">
@@ -331,19 +345,19 @@ export default function PrivateMarketsReport() {
               <ul className="space-y-3 text-sm text-foreground">
                 <li className="flex items-start gap-2">
                   <span className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: CHART_COLORS.blue }} />
-                  <span>Secondary transaction volume surpassed <strong>$200B</strong> in 2025, driven by LP-led rebalancing and GP-led continuation vehicles.</span>
+                  <span>Secondary volume hit a record <strong>$226B</strong> in 2025 (+42% YoY, Evercore), with William Blair forecasting <strong>$250B in 2026</strong>.</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: CHART_COLORS.purple }} />
-                  <span>The "Private Magnificent 7" (OpenAI, SpaceX, Stripe, Databricks, Anthropic, xAI, Anduril) <strong>quadrupled</strong> in value since 2023.</span>
+                  <span><strong>Cerebras IPO'd May 14 at $66B</strong> (+89% Day-1 pop) — the largest AI hardware IPO ever, and a key proof point for the SpaceX/OpenAI/Anthropic public-market thesis.</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: CHART_COLORS.green }} />
-                  <span>AI-related investments accounted for <strong>~40%</strong> of all 2025 deal value; SaaS/consumer companies trade at <strong>20-60% discounts</strong>.</span>
+                  <span>AI captured <strong>~55%</strong> of 2025 deal value. <strong>OpenAI ($852B)</strong>, <strong>Anthropic (talks at $900B)</strong>, and the <strong>SpaceX/xAI merger</strong> are reshaping the private mega-cap landscape.</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: CHART_COLORS.amber }} />
-                  <span>Combined SpaceX+OpenAI+Anthropic market cap approaches <strong>$3T</strong>, forcing mega-floats of only 3-8% to avoid crashing markets.</span>
+                  <span>SpaceX (filed Apr 2026, targeting $1.75–2T) plus OpenAI and Anthropic = <strong>~$3T pipeline</strong>, forcing mini-floats of only 3-5% to avoid crashing markets.</span>
                 </li>
               </ul>
             )}
@@ -381,8 +395,8 @@ export default function PrivateMarketsReport() {
               )}
               {!loading && secondaryVolume.length > 0 && (
                 <div className="mt-5 space-y-2 text-sm text-foreground leading-relaxed">
-                  <p>Secondary transaction volume has surged to a record <strong>$200 billion</strong> in 2025, cementing the secondary market's institutionalization. Growth accelerated after the 2022 correction, fueled by LP-led rebalancing and GP-led continuation vehicles.</p>
-                  <p>Tender offers are increasingly serving as the "new IPO," allowing companies to provide liquidity without facing the scrutiny and volatility of public markets. The <span style={{ color: CHART_COLORS.purple }}>purple dashed line</span> marks the 2021 peak primary era — secondary volume has now <strong>surpassed it by 54%</strong>.</p>
+                  <p>Secondary volume hit a record <strong>$226 billion</strong> in 2025 (+42% YoY per Evercore), cementing the market's institutionalization. H1 2025 alone reached $103B (+51% YoY), with LP-led at $56B and GP-led continuation vehicles at $47B. Discounts narrowed to <strong>94% of NAV</strong> for buyout PE stakes, up from sub-90% in 2022.</p>
+                  <p>Tender offers are now the "new IPO" — letting companies provide liquidity without public market scrutiny. The <span style={{ color: CHART_COLORS.purple }}>purple dashed line</span> marks the 2021 peak; 2025 volume <strong>surpassed it by 74%</strong>, and William Blair forecasts <strong>$250B in 2026</strong>.</p>
                 </div>
               )}
             </CardContent>
@@ -411,8 +425,8 @@ export default function PrivateMarketsReport() {
               )}
               {!loading && spvBreakdown.length > 0 && (
                 <div className="mt-5 space-y-2 text-sm text-foreground leading-relaxed">
-                  <p>Special Purpose Vehicles are proliferating rapidly. SPV share of secondary volume climbed from 28% in 2022 to <strong>over 52%</strong> by late 2025, crossing the majority threshold for the first time.</p>
-                  <p>This surge is driven by concentrated appetite for best-in-class AI and defense tech companies, where investors prefer single-asset exposure over blind-pool fund commitments. The <span style={{ color: CHART_COLORS.amber }}>50% crossover line</span> marks where SPVs became the dominant deal structure.</p>
+                  <p>Special Purpose Vehicles are proliferating rapidly. SPV share of secondary volume climbed from 28% in 2022 to <strong>58% in Q1 2026</strong>, having crossed the majority threshold in H2 2025. <strong>'40 Act funds and evergreen retail vehicles</strong> now account for nearly one-third of secondary fundraising.</p>
+                  <p>This surge is driven by concentrated appetite for best-in-class AI and defense tech, where investors prefer single-asset exposure over blind-pool funds. The <span style={{ color: CHART_COLORS.amber }}>50% crossover line</span> marks where SPVs became the dominant deal structure.</p>
                 </div>
               )}
             </CardContent>
@@ -427,7 +441,7 @@ export default function PrivateMarketsReport() {
                 <ResponsiveContainer width="100%" height={380} debounce={0}>
                   <BarChart data={bifurcation} layout="vertical" margin={{ top: 5, right: 40, left: 10, bottom: 5 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke={gridColor} horizontal={true} vertical={false} />
-                    <XAxis type="number" tickFormatter={(v) => `${v > 0 ? '+' : ''}${v}%`} tick={{ fontSize: 12, fill: tickColor }} stroke={tickColor} tickLine={false} axisLine={false} domain={[-70, 100]} />
+                    <XAxis type="number" tickFormatter={(v) => `${v > 0 ? '+' : ''}${v}%`} tick={{ fontSize: 12, fill: tickColor }} stroke={tickColor} tickLine={false} axisLine={false} domain={[-70, 220]} />
                     <YAxis dataKey="sector" type="category" tick={{ fontSize: 11, fill: tickColor }} stroke={tickColor} tickLine={false} axisLine={false} width={140} />
                     <Tooltip content={<CustomTooltip formatter={(v: number) => `${v > 0 ? '+' : ''}${v}%`} />} isAnimationActive={false} cursor={false} />
                     <ReferenceLine x={0} stroke={tickColor} strokeWidth={1.5} strokeOpacity={0.4} />
@@ -449,8 +463,8 @@ export default function PrivateMarketsReport() {
               )}
               {!loading && bifurcation.length > 0 && (
                 <div className="mt-5 space-y-2 text-sm text-foreground leading-relaxed">
-                  <p>A stark divergence defines current market pricing. Top-tier AI and defense companies command <span className="font-bold" style={{ color: CHART_COLORS.green }}>30-85% premiums</span> over their last primary valuations, reflecting intense scarcity value and insatiable demand.</p>
-                  <p>Conversely, 2021-era SaaS and consumer companies trade at <span className="font-bold" style={{ color: CHART_COLORS.red }}>20-60% discounts</span>. The zero line starkly separates the AI-era winners from the rest — creating generational acquisition opportunities for disciplined buyers targeting high-cash-flow assets with strong Rule of 40 fundamentals.</p>
+                  <p>A stark divergence defines current market pricing. Top-tier AI names command extreme premiums — <strong style={{ color: CHART_COLORS.green }}>OpenAI +184%</strong>, <strong style={{ color: CHART_COLORS.green }}>Anthropic +137%</strong>, and <strong style={{ color: CHART_COLORS.green }}>SpaceX +95%</strong> over their prior primary marks. Cerebras's <strong style={{ color: CHART_COLORS.green }}>+89% IPO Day-1 pop</strong> validated this dynamic in public markets.</p>
+                  <p>Conversely, 2021-era SaaS and consumer companies trade at <span className="font-bold" style={{ color: CHART_COLORS.red }}>22-52% discounts</span>. The zero line cleanly separates the AI-era winners from the rest — creating generational acquisition opportunities for disciplined buyers targeting high-cash-flow assets with strong Rule of 40 fundamentals.</p>
                 </div>
               )}
             </CardContent>
@@ -468,7 +482,7 @@ export default function PrivateMarketsReport() {
                       <CartesianGrid strokeDasharray="3 3" stroke={gridColor} vertical={false} />
                       <XAxis dataKey="company" tick={{ fontSize: 11, fill: tickColor }} stroke={tickColor} tickLine={false} axisLine={false} />
                       <YAxis yAxisId="left" tickFormatter={(v) => `$${v}B`} tick={{ fontSize: 12, fill: tickColor }} stroke={tickColor} tickLine={false} axisLine={false} />
-                      <YAxis yAxisId="right" orientation="right" tickFormatter={(v) => `${v}%`} tick={{ fontSize: 12, fill: tickColor }} stroke={tickColor} tickLine={false} axisLine={false} domain={[0, 600]} />
+                      <YAxis yAxisId="right" orientation="right" tickFormatter={(v) => `${v}%`} tick={{ fontSize: 12, fill: tickColor }} stroke={tickColor} tickLine={false} axisLine={false} domain={[0, 3200]} />
                       <Tooltip
                         content={<CustomTooltip formatter={(v: number, name: string) => name.includes("Growth") ? `+${v}%` : `$${v}B`} />}
                         isAnimationActive={false}
@@ -502,8 +516,8 @@ export default function PrivateMarketsReport() {
               )}
               {!loading && magSeven.length > 0 && (
                 <div className="mt-5 space-y-2 text-sm text-foreground leading-relaxed">
-                  <p>Capital concentration is at unprecedented levels. The "Private Magnificent 7" have experienced nearly <strong>4x combined growth</strong> since 2023, with xAI leading at <span style={{ color: CHART_COLORS.purple }}>+500%</span> and OpenAI at <span style={{ color: CHART_COLORS.purple }}>+420%</span>.</p>
-                  <p>The <span style={{ color: CHART_COLORS.purple }}>purple line</span> overlaying the bars reveals that while SpaceX commands the highest absolute valuation ($350B), the AI-native companies are growing fastest. These mega-caps are absorbing the majority of marginal private capital deployed by growth and crossover funds.</p>
+                  <p>Capital concentration has reached extraordinary levels. <strong>Anthropic leads at +2,950%</strong> growth since 2023 (now $380B, with talks at $900B+), <strong>OpenAI at +1,850%</strong> ($852B, March 2026), and <strong>SpaceX/xAI at +1,900%</strong> ($1.75T IPO target after the February 2026 merger).</p>
+                  <p>The <span style={{ color: CHART_COLORS.purple }}>purple line</span> reveals AI-native companies are still growing fastest even at these scales. <strong>Cerebras's $66B IPO</strong> graduates the first member of this cohort to public markets — a critical liquidity proof point. These mega-caps are absorbing the majority of marginal private capital from growth and crossover funds.</p>
                 </div>
               )}
             </CardContent>
@@ -565,8 +579,8 @@ export default function PrivateMarketsReport() {
                   </div>
 
                   <div className="mt-5 space-y-2 text-sm text-foreground leading-relaxed">
-                    <p>The impending IPOs of SpaceX, OpenAI, and Anthropic represent a systemic market event. With a combined market cap approaching <strong>$3 Trillion</strong>, traditional public offerings are mathematically unfeasible.</p>
-                    <p>A standard 15% float would require <strong>${ipoPipeline.totalCapNeededAt15FloatB}B</strong> in capital absorption — nearly matching the <strong>entire decade of US IPOs</strong> (${ipoPipeline.historicalUsipoTotalB}B). This forces highly unconventional {ipoPipeline.projectedFloatPctMin}-{ipoPipeline.projectedFloatPctMax}% "mini-floats," creating an ongoing reliance on structured secondary mechanisms even post-IPO.</p>
+                    <p><strong>SpaceX confidentially filed in April 2026</strong> targeting a $1.75–2T valuation and up to $75B raise — more than 2x Saudi Aramco's record IPO. Combined with OpenAI ($852B) and Anthropic ($380B, in talks at $900B+), the pipeline approaches <strong>$3 Trillion</strong>. Cerebras's smooth $66B Day-1 reception signals appetite — but this scale is another order of magnitude.</p>
+                    <p>A standard 15% float would require <strong>${ipoPipeline.totalCapNeededAt15FloatB}B</strong> in capital absorption — over <strong>the entire decade of US IPOs</strong> (${ipoPipeline.historicalUsipoTotalB}B). This forces highly unconventional {ipoPipeline.projectedFloatPctMin}-{ipoPipeline.projectedFloatPctMax}% "mini-floats," creating ongoing reliance on structured secondary mechanisms even post-IPO.</p>
                   </div>
                 </>
               ) : null}
@@ -582,7 +596,7 @@ export default function PrivateMarketsReport() {
                 {[
                   { title: "Target the spread", desc: "Generate alpha by pricing the gap between stale primary marks and dynamic secondary reality.", color: CHART_COLORS.blue },
                   { title: "Build structured liquidity solutions", desc: "Actively participate in GP-led continuations, targeted SPV access, and tender offer mechanics as companies stay private longer.", color: CHART_COLORS.purple },
-                  { title: "AI infrastructure underwriting", desc: "Develop precise models for AI infrastructure costs and capacity; prioritize hard-asset plays like CoreWeave and Cerebras over pure software wrappers.", color: CHART_COLORS.green },
+                  { title: "AI infrastructure underwriting", desc: "Cerebras's $66B IPO (+89% Day-1) validates the hard-asset AI infra thesis. Prioritize compute-layer plays (CoreWeave, Lambda, Together) over pure software wrappers; build precise models for power, capacity, and unit economics.", color: CHART_COLORS.green },
                   { title: "Aggressively acquire discounted SaaS", desc: "Capitalize on the current bifurcation to acquire high-cash-flow SaaS assets trading at 20-60% discounts despite strong Rule of 40 fundamentals.", color: CHART_COLORS.amber },
                 ].map((rec, i) => (
                   <li key={i} className="flex items-start gap-3">
