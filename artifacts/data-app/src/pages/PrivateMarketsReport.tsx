@@ -47,7 +47,7 @@ const SECTOR_ICONS: Record<string, any> = {
   "Fintech": DollarSign,
 };
 
-const DATA_SOURCES: string[] = ["Evercore PCA", "William Blair", "Q1 2026 Private Markets Outlook", "May 2026 update incl. Cerebras IPO"];
+const DATA_SOURCES: string[] = ["Evercore PCA", "William Blair", "Q1 2026 Private Markets Outlook", "June 2026 live update (SpaceX IPO, Anthropic round)"];
 
 function CustomTooltip({ active, payload, label, formatter }: any) {
   if (!active || !payload || payload.length === 0) return null;
@@ -301,9 +301,9 @@ export default function PrivateMarketsReport() {
             loading={loading && !overview}
           />
           <KpiCard
-            label="OpenAI Valuation"
-            value="$852B"
-            subtext="Mar 2026 round"
+            label="SpaceX IPO"
+            value="~$1.75T"
+            subtext="Nasdaq debut Jun 12"
             color={CHART_COLORS.green}
             trend="up"
             loading={loading && !overview}
@@ -324,9 +324,9 @@ export default function PrivateMarketsReport() {
               <Rocket className="w-4 h-4" style={{ color: CHART_COLORS.green }} />
             </span>
             <div className="flex-1">
-              <p className="text-[13px] font-semibold mb-0.5" style={{ color: CHART_COLORS.green }}>BREAKING — May 14, 2026</p>
+              <p className="text-[13px] font-semibold mb-0.5" style={{ color: CHART_COLORS.green }}>LIVE — Early June 2026</p>
               <p className="text-sm text-foreground leading-relaxed">
-                <strong>Cerebras (CBRS)</strong> priced its IPO at <strong>$185/share</strong> ($56.4B fully diluted), opened at <strong>$350</strong> (+89% pop), and closed Day 1 at <strong>$66B valuation</strong>. The largest AI hardware IPO in history validates the AI infrastructure thesis — and signals public market appetite for the SpaceX/OpenAI/Anthropic pipeline ahead.
+                <strong>SpaceX (SPCX)</strong> debuts on Nasdaq <strong>June 12</strong>, raising up to <strong>$75B</strong> at a <strong>~$1.75T</strong> valuation — only a ~4.3% float, validating the "mini-float" thesis live. <strong>Anthropic's $30–50B round</strong> is closing at <strong>$900B+</strong>. Meanwhile <strong>Cerebras (CBRS)</strong> has cooled from its $66B debut to <strong>~$48B</strong> (-27% from the Day-1 close), a reminder that even validated AI-infra IPOs reprice fast.
               </p>
             </div>
           </CardContent>
@@ -349,15 +349,15 @@ export default function PrivateMarketsReport() {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: CHART_COLORS.purple }} />
-                  <span><strong>Cerebras IPO'd May 14 at $66B</strong> (+89% Day-1 pop) — the largest AI hardware IPO ever, and a key proof point for the SpaceX/OpenAI/Anthropic public-market thesis.</span>
+                  <span><strong>SpaceX (SPCX) lists June 12</strong> at a ~$1.75T valuation, raising up to $75B — a ~4.3% float that proves the "mini-float" thesis in real time.</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: CHART_COLORS.green }} />
-                  <span>AI captured <strong>~55%</strong> of 2025 deal value. <strong>OpenAI ($852B)</strong>, <strong>Anthropic (talks at $900B)</strong>, and the <strong>SpaceX/xAI merger</strong> are reshaping the private mega-cap landscape.</span>
+                  <span>AI captured <strong>~55%</strong> of 2025 deal value. <strong>Anthropic's $30–50B round</strong> is closing at <strong>$900B+</strong> (run rate $30B→$50B by June); OpenAI sits at $852B.</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: CHART_COLORS.amber }} />
-                  <span>SpaceX (filed Apr 2026, targeting $1.75–2T) plus OpenAI and Anthropic = <strong>~$3T pipeline</strong>, forcing mini-floats of only 3-5% to avoid crashing markets.</span>
+                  <span><strong>Cerebras has repriced</strong> from its $66B debut to ~$48B (-27% from Day-1 close), even as it trades above its $185 IPO — a caution on AI-infra valuation durability.</span>
                 </li>
               </ul>
             )}
@@ -463,7 +463,7 @@ export default function PrivateMarketsReport() {
               )}
               {!loading && bifurcation.length > 0 && (
                 <div className="mt-5 space-y-2 text-sm text-foreground leading-relaxed">
-                  <p>A stark divergence defines current market pricing. Top-tier AI names command extreme premiums — <strong style={{ color: CHART_COLORS.green }}>OpenAI +184%</strong>, <strong style={{ color: CHART_COLORS.green }}>Anthropic +137%</strong>, and <strong style={{ color: CHART_COLORS.green }}>SpaceX +95%</strong> over their prior primary marks. Cerebras's <strong style={{ color: CHART_COLORS.green }}>+89% IPO Day-1 pop</strong> validated this dynamic in public markets.</p>
+                  <p>A stark divergence defines current market pricing. Top-tier AI names command extreme premiums — <strong style={{ color: CHART_COLORS.green }}>OpenAI +184%</strong>, <strong style={{ color: CHART_COLORS.green }}>Anthropic +137%</strong>, and <strong style={{ color: CHART_COLORS.green }}>SpaceX +95%</strong> over their prior primary marks. Now-public Cerebras still trades <strong style={{ color: CHART_COLORS.green }}>~23% above its $185 IPO</strong>, though down sharply from its Day-1 peak.</p>
                   <p>Conversely, 2021-era SaaS and consumer companies trade at <span className="font-bold" style={{ color: CHART_COLORS.red }}>22-52% discounts</span>. The zero line cleanly separates the AI-era winners from the rest — creating generational acquisition opportunities for disciplined buyers targeting high-cash-flow assets with strong Rule of 40 fundamentals.</p>
                 </div>
               )}
@@ -516,15 +516,15 @@ export default function PrivateMarketsReport() {
               )}
               {!loading && magSeven.length > 0 && (
                 <div className="mt-5 space-y-2 text-sm text-foreground leading-relaxed">
-                  <p>Capital concentration has reached extraordinary levels. <strong>Anthropic leads at +2,950%</strong> growth since 2023 (now $380B, with talks at $900B+), <strong>OpenAI at +1,850%</strong> ($852B, March 2026), and <strong>SpaceX/xAI at +1,900%</strong> ($1.75T IPO target after the February 2026 merger).</p>
-                  <p>The <span style={{ color: CHART_COLORS.purple }}>purple line</span> reveals AI-native companies are still growing fastest even at these scales. <strong>Cerebras's $66B IPO</strong> graduates the first member of this cohort to public markets — a critical liquidity proof point. These mega-caps are absorbing the majority of marginal private capital from growth and crossover funds.</p>
+                  <p>Capital concentration has reached extraordinary levels. <strong>SpaceX/xAI tops the cohort at $1.75T</strong> ahead of its June 12 listing, while <strong>Anthropic leads on growth</strong> — now $900B (round closing, +3,100% since 2023, run rate $30B→$50B by June) — and <strong>OpenAI sits at $852B</strong> (March 2026 round).</p>
+                  <p>The <span style={{ color: CHART_COLORS.purple }}>purple line</span> reveals AI-native companies are still growing fastest even at these scales. <strong>Cerebras (now public at ~$48B)</strong> is the first cohort member to graduate to public markets — though its repricing from a $66B debut underscores that even validated names face public-market gravity.</p>
                 </div>
               )}
             </CardContent>
           </Card>
 
           <Card>
-            <SectionHeader number={5} title="The $3 Trillion IPO Stress Test" isDark={isDark} loading={loading && !ipoPipeline} />
+            <SectionHeader number={5} title="The $3.5 Trillion IPO Stress Test" isDark={isDark} loading={loading && !ipoPipeline} />
             <CardContent className="px-6 pb-6">
               {loading && !ipoPipeline ? (
                 <Skeleton className="w-full h-[360px]" />
@@ -558,8 +558,8 @@ export default function PrivateMarketsReport() {
                     <div className="flex flex-col gap-3">
                       <div className="p-4 rounded-xl border bg-muted/20">
                         <p className="text-[11px] text-muted-foreground uppercase tracking-wider font-medium mb-1">Combined Market Cap</p>
-                        <p className="text-[32px] font-bold leading-tight" style={{ color: CHART_COLORS.blue }}>~$3T</p>
-                        <p className="text-[12px] text-muted-foreground mt-1">SpaceX + OpenAI + Anthropic</p>
+                        <p className="text-[32px] font-bold leading-tight" style={{ color: CHART_COLORS.blue }}>~$3.5T</p>
+                        <p className="text-[12px] text-muted-foreground mt-1">SpaceX + Anthropic + OpenAI</p>
                       </div>
                       <div className="grid grid-cols-2 gap-3">
                         <div className="p-3 rounded-xl border bg-muted/20">
@@ -579,7 +579,7 @@ export default function PrivateMarketsReport() {
                   </div>
 
                   <div className="mt-5 space-y-2 text-sm text-foreground leading-relaxed">
-                    <p><strong>SpaceX confidentially filed in April 2026</strong> targeting a $1.75–2T valuation and up to $75B raise — more than 2x Saudi Aramco's record IPO. Combined with OpenAI ($852B) and Anthropic ($380B, in talks at $900B+), the pipeline approaches <strong>$3 Trillion</strong>. Cerebras's smooth $66B Day-1 reception signals appetite — but this scale is another order of magnitude.</p>
+                    <p><strong>SpaceX debuts on Nasdaq June 12</strong> at a ~$1.75T valuation, raising up to $75B — more than 2x Saudi Aramco's record IPO. Combined with Anthropic ($900B, round closing) and OpenAI ($852B), the pipeline approaches <strong>$3.5 Trillion</strong>. Tellingly, SpaceX's $75B raise is only a <strong>~4.3% float</strong> — confirming the mini-float thesis live.</p>
                     <p>A standard 15% float would require <strong>${ipoPipeline.totalCapNeededAt15FloatB}B</strong> in capital absorption — over <strong>the entire decade of US IPOs</strong> (${ipoPipeline.historicalUsipoTotalB}B). This forces highly unconventional {ipoPipeline.projectedFloatPctMin}-{ipoPipeline.projectedFloatPctMax}% "mini-floats," creating ongoing reliance on structured secondary mechanisms even post-IPO.</p>
                   </div>
                 </>
@@ -596,8 +596,8 @@ export default function PrivateMarketsReport() {
                 {[
                   { title: "Target the spread", desc: "Generate alpha by pricing the gap between stale primary marks and dynamic secondary reality.", color: CHART_COLORS.blue },
                   { title: "Build structured liquidity solutions", desc: "Actively participate in GP-led continuations, targeted SPV access, and tender offer mechanics as companies stay private longer.", color: CHART_COLORS.purple },
-                  { title: "AI infrastructure underwriting", desc: "Cerebras's $66B IPO (+89% Day-1) validates the hard-asset AI infra thesis. Prioritize compute-layer plays (CoreWeave, Lambda, Together) over pure software wrappers; build precise models for power, capacity, and unit economics.", color: CHART_COLORS.green },
-                  { title: "Aggressively acquire discounted SaaS", desc: "Capitalize on the current bifurcation to acquire high-cash-flow SaaS assets trading at 20-60% discounts despite strong Rule of 40 fundamentals.", color: CHART_COLORS.amber },
+                  { title: "AI infrastructure underwriting", desc: "Cerebras proved AI-infra IPOs clear — but its slide from $66B to ~$48B shows entry discipline matters. Prioritize compute-layer plays (CoreWeave, Lambda, Together) over software wrappers, and underwrite to durable power, capacity, and unit economics rather than debut multiples.", color: CHART_COLORS.green },
+                  { title: "Aggressively acquire discounted SaaS", desc: "Capitalize on the current bifurcation to acquire high-cash-flow SaaS assets trading at 22-52% discounts despite strong Rule of 40 fundamentals.", color: CHART_COLORS.amber },
                 ].map((rec, i) => (
                   <li key={i} className="flex items-start gap-3">
                     <span className="inline-flex items-center justify-center w-6 h-6 rounded-full text-[11px] font-bold shrink-0 mt-0.5" style={{ backgroundColor: rec.color + "18", color: rec.color }}>

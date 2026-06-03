@@ -15,7 +15,7 @@ router.get("/market/overview", async (_req, res): Promise<void> => {
     secondaryVolumeB: 226,
     aiDealSharePct: 55,
     spvSharePct: 58,
-    megaCapValuationT: 3,
+    megaCapValuationT: 4,
     saasDiscountPctMin: 22,
     saasDiscountPctMax: 52,
     valuationGrowthSince2023x: 18,
@@ -39,7 +39,7 @@ router.get("/market/secondary-volume", async (_req, res): Promise<void> => {
 
 router.get("/market/bifurcation", async (_req, res): Promise<void> => {
   const data = GetMarketBifurcationResponse.parse([
-    { sector: "Cerebras (IPO Day-1)", premiumDiscountPct: 89, category: "premium" },
+    { sector: "Cerebras (now vs IPO)", premiumDiscountPct: 23, category: "premium" },
     { sector: "OpenAI", premiumDiscountPct: 184, category: "premium" },
     { sector: "Anthropic", premiumDiscountPct: 137, category: "premium" },
     { sector: "SpaceX", premiumDiscountPct: 95, category: "premium" },
@@ -57,11 +57,11 @@ router.get("/market/bifurcation", async (_req, res): Promise<void> => {
 router.get("/market/magnificent-seven", async (_req, res): Promise<void> => {
   const data = GetMagnificentSevenResponse.parse([
     { company: "SpaceX + xAI", valuationB: 1750, sector: "Aerospace / Defense", valuationGrowthSince2023Pct: 1900 },
+    { company: "Anthropic", valuationB: 900, sector: "Frontier AI", valuationGrowthSince2023Pct: 3100 },
     { company: "OpenAI", valuationB: 852, sector: "Frontier AI", valuationGrowthSince2023Pct: 1850 },
-    { company: "Anthropic", valuationB: 380, sector: "Frontier AI", valuationGrowthSince2023Pct: 2950 },
     { company: "Databricks", valuationB: 100, sector: "AI Infrastructure", valuationGrowthSince2023Pct: 350 },
     { company: "Stripe", valuationB: 92, sector: "Fintech", valuationGrowthSince2023Pct: 190 },
-    { company: "Cerebras (IPO)", valuationB: 66, sector: "AI Infrastructure", valuationGrowthSince2023Pct: 720 },
+    { company: "Cerebras (public)", valuationB: 48, sector: "AI Infrastructure", valuationGrowthSince2023Pct: 500 },
     { company: "Anduril", valuationB: 31, sector: "Defense Tech", valuationGrowthSince2023Pct: 320 },
   ]);
   res.json(data);
@@ -70,11 +70,11 @@ router.get("/market/magnificent-seven", async (_req, res): Promise<void> => {
 router.get("/market/ipo-pipeline", async (_req, res): Promise<void> => {
   const data = GetIpoPipelineResponse.parse({
     companies: [
-      { name: "SpaceX (filed Apr 2026)", valuationB: 1750 },
+      { name: "SpaceX (IPO Jun 12)", valuationB: 1750 },
+      { name: "Anthropic", valuationB: 900 },
       { name: "OpenAI", valuationB: 852 },
-      { name: "Anthropic", valuationB: 380 },
     ],
-    totalCapNeededAt15FloatB: 447,
+    totalCapNeededAt15FloatB: 525,
     projectedFloatPctMin: 3,
     projectedFloatPctMax: 5,
     historicalUsipoTotalB: 410,
